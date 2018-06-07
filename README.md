@@ -14,13 +14,14 @@ Use `yarn test` to run the tests.
 Use `yarn cover` to run coverage report.
 
 # Todos
-[x] Add find & findOne with encyption
-[x] Add saving with encryption
-[x] Add findOneAndUpdate
-[ ] Check Mongoose update
-[ ] Check Cucumber tests
-[ ] Add travisci
-[ ] Add coveralls
-[ ] Create example
-[ ] Test plugin in a real app
-[ ] Publish to npm after first release
+
+- [x] Add find & findOne with encyption
+- [x] Add saving with encryption
+- [x] Add findOneAndUpdate
+- [ ] Check Mongoose update
+- [ ] Check Cucumber tests
+- [ ] Add travisci
+- [ ] Add coveralls
+- [ ] Create example
+- [ ] Test plugin in a real app 
+- [ ] Publish to npm after first release
