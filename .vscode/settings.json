@@ -1,0 +1,5 @@
+{
+  // Beim Öffnen einer Datei werden "editor.tabSize" und "editor.insertSpaces" basierend auf den Dateiinhalten erkannt.
+  "editor.detectIndentation": false,
+  "editor.formatOnType": false
+}
