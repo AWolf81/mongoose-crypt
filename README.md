@@ -1,3 +1,5 @@
+[![Travis Status](https://img.shields.io/travis/awolf81/mongoose-encrypt/master.svg?label=Travis%20bulid)](https://travis-ci.org/awolf81/mongoose-encrypt)
+
 # Mongoose encryption plugin
 This plugin is simillar to the Mongoose-Cipher plugin but it will support encryption of nested values.
 

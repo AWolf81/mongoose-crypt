@@ -3,6 +3,11 @@
         [
             "env",
             {
+                "nyc": {
+                    "plugins": [
+                        "istanbul"
+                    ]
+                },
                 "targets": {
                     "node": "current"
                 }
