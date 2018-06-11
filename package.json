@@ -11,6 +11,7 @@
     "compile:watch": "chokidar ./src/*.js -c \"npm run compile\"",
     "test:mocha": "npm run compile && mocha --compilers js:babel-core/register --reporter spec",
     "test": "npm run compile && cucumber-js",
+    "cucumber": "cucumber-js",
     "cover": "nyc cucumber-js",
     "watch": "concurrently \"npm test\" \"chokidar ./features/*.* -c \"npm test\"\""
   },

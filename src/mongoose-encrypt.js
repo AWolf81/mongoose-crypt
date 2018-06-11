@@ -36,6 +36,16 @@ export default function(schema, options) {
     next()
   })
 
+  schema.pre('update', function(next) {
+    //// console.log('before update', this._update)
+    for (let field of options.fieldsToEncrypt) {
+      const ciphertext = encrypt(dotty.get(this._update, field))
+      console.log('cipher', ciphertext.toString())
+      dotty.put(this._update, field, ciphertext.toString())
+    }
+    next()
+  })
+
   schema.post('find', function(docs, next) {
     try {
       //// console.log('find in pos', docs)
@@ -55,6 +65,7 @@ export default function(schema, options) {
 
   schema.post('findOne', function(doc, next) {
     for (let field of options.fieldsToEncrypt) {
+      console.log('find one', doc, dotty.get(doc, field))
       dotty.put(doc, field, decrypt(dotty.get(doc, field)))
     }
     next()

@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const encrypt = require('../../lib/mongoose-encrypt').default
 
 // console.log('encrypt', encrypt)
-let TestSchema = mongoose.Schema({ content: String })
+let TestSchema = mongoose.Schema({ _id: String, content: String })
 TestSchema.plugin(encrypt, { fields: ['content'], secret: 'mysecret-key' })
 const Test = mongoose.model('test', TestSchema)
 const plainText = 'plaintext'
@@ -14,16 +14,19 @@ let testModel
 Before(async () => {
   await mongoose.connect(dbURI)
   mongoose.connection.dropDatabase()
-  testModel = new Test({ content: plainText })
+  testModel = new Test({ _id: 0, content: plainText })
   await testModel.save()
 
-  const testModel2 = new Test({ content: plainText })
+  const testModel2 = new Test({ _id: 1, content: plainText })
   await testModel2.save() // save twice
 })
 
-After(() => {
+After(async () => {
   // runs after each scenario
   //   conn.dropDatabase() // later drop db
+  // testing ------
+  // const docs = await Test.find()
+  // console.log('after test', docs)
 })
 
 function isEncrypted(doc, key) {
@@ -67,7 +70,7 @@ Then('the field is {string} in database', function(expectedAnswer) {
 })
 
 Given('User enters {string}', function(textToEncrypt) {
-  this.model = new Test({ content: textToEncrypt })
+  this.model = new Test({ _id: mongoose.Types.ObjectId(), content: textToEncrypt })
 })
 
 When('the users saves the document', function() {
@@ -95,22 +98,43 @@ Then('{string} will be encrypted in database', async function(key) {
 })
 
 Given('user enters {string}', function(text) {
-  this.model = new Test({ content: text })
+  this.model = new Test({ _id: mongoose.Types.ObjectId(), content: text })
 })
 
 // findOneAndUpdate
 Given(
-  'user uses method {string} to modify first document from {string} to {string}',
-  async function(method, orgString, modified) {
+  'user uses method {string}', // to modify first document from {string} to {string}',
+  function(method) {
     // Write code here that turns the phrase above into concrete actions
-    const doc = await Test[method]({}, { content: modified }).exec() // findOneAndUpdate for first element
-    console.log('given', doc) // query
-    this.model = doc // todo --> use same object!!
-    this.docs = doc
+    this.method = method
   }
 )
 
+Given('modifies {string}', function(query) {
+  this.query = query
+})
+
+Given('wants to change from {string} to {string}', async function(org, modification) {
+  let doc
+  if (this.query == 'first document') {
+    // it's more an action and should be in when
+    doc = await Test[this.method]({}, { content: modification }).exec() // findOneAndUpdate for first element
+    console.log('given', doc) // query
+  } else {
+    const splitted = this.query.split('=')
+    const key = splitted[0]
+    const val = splitted[1]
+    console.log('query key', key, val)
+    console.log('method', this.method)
+    const res = await Test[this.method]({ key: val }, { content: modification }).exec() // update by id
+    doc = await Test.findOne({ _id: val })
+    console.log('update', doc, res)
+  }
+  this.model = doc // todo --> use same object!!
+  this.docs = doc
+})
 Then('stored value is {string}', async function(expectedAnswer) {
   const doc = await Test.findOne({ _id: this.docs._id })
+  console.log('found stored', doc, this.docs)
   assert.equal(doc.content, expectedAnswer)
 })
