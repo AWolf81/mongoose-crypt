@@ -75,21 +75,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-# Todos
-
-- [x] Add find & findOne with encyption
-- [x] Add saving with encryption
-- [x] Add findOneAndUpdate
-- [x] Add basic example text to readme
-- [ ] Add migration method for existing data unencrypted to encrypted
-- [ ] Add decrypt for whole database (needed to disable the plugin)
-- [ ] Add change secret to a new secret for all documents (needed if the old secret is compromised)
-- [ ] Add/check subdocument support
-- [ ] Check Mongoose update
-- [ ] Check validation of encrypted fields - pre validate hook available?
-- [ ] Check Cucumber tests
-- [ ] Add travisci
-- [ ] Add coveralls
-- [ ] Create example
-- [ ] Test plugin in a real app 
-- [ ] Publish to npm after first release
