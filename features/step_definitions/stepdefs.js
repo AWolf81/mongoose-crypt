@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Given, When, Then, Before, After } = require('cucumber')
 const dbURI = 'mongodb://localhost:27017/mongoose-encrypt'
 const mongoose = require('mongoose')
-const encrypt = require('../../lib/mongoose-encrypt').default
+const encrypt = require('../../src/mongoose-encrypt').default
 
 // console.log('encrypt', encrypt)
 let TestSchema = mongoose.Schema({ _id: String, content: String })
@@ -119,22 +119,22 @@ Given('wants to change from {string} to {string}', async function(org, modificat
   if (this.query == 'first document') {
     // it's more an action and should be in when
     doc = await Test[this.method]({}, { content: modification }).exec() // findOneAndUpdate for first element
-    console.log('given', doc) // query
+    // console.log('given', doc) // query
   } else {
     const splitted = this.query.split('=')
     const key = splitted[0]
     const val = splitted[1]
-    console.log('query key', key, val)
-    console.log('method', this.method)
+    // console.log('query key', key, val)
+    // console.log('method', this.method)
     const res = await Test[this.method]({ key: val }, { content: modification }).exec() // update by id
-    doc = await Test.findOne({ _id: val })
-    console.log('update', doc, res)
+    doc = await Test.findOne({ _id: val }).exec()
+    // console.log('update', doc, res)
   }
   this.model = doc // todo --> use same object!!
   this.docs = doc
 })
 Then('stored value is {string}', async function(expectedAnswer) {
   const doc = await Test.findOne({ _id: this.docs._id })
-  console.log('found stored', doc, this.docs)
+  // console.log('found stored', doc, this.docs)
   assert.equal(doc.content, expectedAnswer)
 })

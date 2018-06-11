@@ -1,0 +1,5 @@
+language: node_js
+services:
+  - mongodb
+# before_script: # just if there is a issue with first connection to mongodb
+  # - sleep 15
