@@ -4,7 +4,7 @@
   "description": "",
   "main": "mongoose-encrypt.js",
   "scripts": {
-    "dev": "concurrently \"npm run lint\"",
+    "dev": "npm run lint",
     "lint": "esw ./src ./features -w",
     "build": "npm run clean && babel -d lib/ src/",
     "clean": "rimraf lib",
