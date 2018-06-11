@@ -1,4 +1,6 @@
 language: node_js
+node_js:
+  - "9"
 services:
   - mongodb
 # before_script: # just if there is a issue with first connection to mongodb
