@@ -50,6 +50,12 @@ Use `yarn test` to run the tests.
 
 Use `yarn cover` to run coverage report.
 
+# Examples 
+To run the examples go into the examples directory and run `node basic.js` to run it. 
+You maybe need to modifiy the port of your local mongo service (if it's different). Also be sure to have `mongod` running before execution.
+
+If you need help to start & setup MongoDB locally with Windows, this [SO question](https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows#37548118) will help.
+
 # Security notes
 - Keep a copy of the secret in a save place locally. If you're loosing the key the data can't be decrypted anymore.
 - Store your secret for encryption in a save place e.g. environment variable of your hoster and use it with `process.env`

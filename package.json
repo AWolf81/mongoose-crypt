@@ -2,7 +2,7 @@
   "name": "mongoose-encrypt",
   "version": "0.0.1",
   "description": "",
-  "main": "mongoose-encrypt.js",
+  "main": "./lib/mongoose-encrypt.js",
   "scripts": {
     "dev": "cucumber-js --profile devel && npm run lint",
     "lint": "esw ./src ./features -w",
