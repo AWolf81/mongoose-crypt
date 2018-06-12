@@ -1,8 +1,5 @@
 {
+  "extends": "@istanbuljs/nyc-config-babel",
   "reporter"   : ["text", "text-summary", "lcov", "html"],
-  "include"    : ["src/**/*.js"],
-  "require"    : ["babel-register"],
-  "sourceMap"  : false,
-  "instrument" : false,
-  "all"        : true
+  "include": "./src/**/*.js"
 }

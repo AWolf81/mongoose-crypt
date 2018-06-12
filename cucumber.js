@@ -1,3 +1,11 @@
+var common = [
+  '--require-module babel-register',
+  `--format ${process.env.CI ? 'progress' : 'progress-bar'}`,
+  '--format rerun:@rerun.txt',
+  '--format usage:usage.txt'
+].join(' ')
+
 module.exports = {
-  default: `--fail-fast --require-module babel-register --exit`
+  default: common + ' --exit',
+  devel: common
 }

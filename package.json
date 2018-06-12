@@ -4,13 +4,14 @@
   "description": "",
   "main": "mongoose-encrypt.js",
   "scripts": {
-    "dev": "npm run lint",
+    "dev": "cucumber-js --profile devel && npm run lint",
     "lint": "esw ./src ./features -w",
     "build": "npm run clean && babel -d lib/ src/",
     "clean": "rimraf lib",
     "test": "cucumber-js",
-    "cover": "nyc cucumber-js --compilers js:babel-core/register",
-    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov --token=6831807c-9aba-432a-9f7a-f2002d7d151a"
+    "test:repeat": "cucumber-js @rerun.txt --profile devel",
+    "cover": "cross-env NODE_ENV=test nyc cucumber-js",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "keywords": [],
   "author": "AWolf81",
@@ -22,6 +23,7 @@
     "mongoose": "^5.1.4"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-babel": "^1.2.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -29,6 +31,7 @@
     "babel-preset-env": "^1.7.0",
     "codecov": "^3.0.2",
     "concurrently": "^3.5.1",
+    "cross-env": "^5.1.6",
     "cucumber": "^4.2.1",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",

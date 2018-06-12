@@ -135,6 +135,6 @@ Given('wants to change from {string} to {string}', async function(org, modificat
 })
 Then('stored value is {string}', async function(expectedAnswer) {
   const doc = await Test.findOne({ _id: this.docs._id })
-  // console.log('found stored', doc, this.docs)
+  console.log('found stored', doc, this.docs)
   assert.equal(doc.content, expectedAnswer)
 })

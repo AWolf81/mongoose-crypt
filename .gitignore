@@ -1,6 +1,11 @@
+# cucumber files
 @rerun.txt
-lib
+usage.txt
+
+# coverage files
 coverage*
 .nyc_output
 
+# build and dependencies
+lib
 node_modules
