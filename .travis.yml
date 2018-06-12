@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - "9"
 script:
-  yarn report-coverage
+  - yarn cover
+  - yarn report-coverage
 services:
   - mongodb
 # before_script: # just if there is a issue with first connection to mongodb
