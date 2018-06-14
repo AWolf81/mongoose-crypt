@@ -37,10 +37,18 @@ This will create data simillar to the following for user `john`.
         __v: NumberInt(0)
     }
     
-Quering as usual with `User.find()` or `User.findOne()` the plugin will decrypt all encrypted fields and returns a readable document.
-    
-Updating with `findOneAndUpdate` is supported.
-    
+Quering as usual with `User.find()` or `User.findOne()` the plugin will decrypt all encrypted fields and returns a readable document. For more details see supported methods below.
+
+## Supported mongoose methods
+
+- `find` and `findOne`
+- `findById` (not tested yet)
+- `findAndUpdate` and `update`
+- `save`
+
+**Query exception**: 
+Querying an encrypted field is not supported yet. Keep your query data unencrypted and if you need to query by an encrypted key you could get all and filter manually (not recommended as this could get slow).
+
 # Installation for development & building
 Clone the repo then `yarn install` to install dependencies.
 
