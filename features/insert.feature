@@ -11,6 +11,6 @@ Feature: Encrypt values inside MongoDB transparently
   Scenario: The developer doesn't have the secret and the user wants to decrypt the document
     Given user queries 1 documents
     When there is no secret
-    Then it should log an error
+    Then it should log an error with message "Secret required! Please pass a secret as option."
 
  

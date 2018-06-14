@@ -5,8 +5,9 @@ const mongoose = require('mongoose')
 const encrypt = require('../../src/mongoose-encrypt').default
 
 // console.log('encrypt', encrypt)
-let TestSchema = mongoose.Schema({ _id: String, content: String, username: String })
-TestSchema.plugin(encrypt, { fields: ['content', 'username'], secret: 'mysecret-key' })
+const encryptedFields = ['content']
+let TestSchema = mongoose.Schema({ _id: String, content: String })
+TestSchema.plugin(encrypt, { fields: encryptedFields, secret: 'mysecret-key' })
 const Test = mongoose.model('test', TestSchema)
 const plainText = 'plaintext'
 let testModel
@@ -14,13 +15,13 @@ let testModel
 Before(async () => {
   await mongoose.connect(dbURI)
   mongoose.connection.dropDatabase()
-  testModel = new Test({ _id: 0, content: plainText, username: 'John' })
+  testModel = new Test({ _id: 0, content: plainText })
   await testModel.save()
 
-  const testModel2 = new Test({ _id: 1, content: plainText, username: 'Jane' })
+  const testModel2 = new Test({ _id: 1, content: plainText })
   await testModel2.save() // save twice
 
-  const testModel3 = new Test({ _id: 2, content: plainText, username: 'John' })
+  const testModel3 = new Test({ _id: 2, content: plainText })
   await testModel3.save() // save twice
 })
 
@@ -48,12 +49,16 @@ Given('user queries {int} documents', async function(count) {
 
 Given('user queries documents by key {string} with value {string}', async function(key, value) {
   // Write code here that turns the phrase above into concrete actions
-  console.log('get docs for query', key, value)
+  // console.log('get docs for query', key, value)
   let query = {}
   query[key] = value
 
-  console.log(query)
-  this.docs = await Test.find(query)
+  // console.log(query)
+  try {
+    this.docs = await Test.find(query)
+  } catch (err) {
+    this.errorThrown = err
+  }
 })
 
 Then('he should get {int} documents', function(count) {
@@ -101,8 +106,13 @@ When('there is no secret', async function() {
   }
 })
 
-Then('it should log an error', function() {
-  assert.deepEqual(this.errorThrown, new Error('Secret required! Please pass a secret as option.'))
+Given('the field {string} is encrypted', function(key) {
+  this.isEncryptedField = encryptedFields.indexOf(key) !== -1
+})
+
+Then('it should log an error with message {string}', function(message) {
+  // Write code here that turns the phrase above into concrete actions
+  assert.deepEqual(this.errorThrown, new Error(message))
 })
 
 Then('{string} will be encrypted in database', async function(key) {
@@ -148,6 +158,6 @@ Given('wants to change from {string} to {string}', async function(org, modificat
 })
 Then('stored value is {string}', async function(expectedAnswer) {
   const doc = await Test.findOne({ _id: this.docs._id })
-  console.log('found stored', doc, this.docs)
+  // console.log('found stored', doc, this.docs)
   assert.equal(doc.content, expectedAnswer)
 })

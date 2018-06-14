@@ -10,7 +10,13 @@ Feature: User should transparently query encrypted values
     And with decrypted values
 
 #   Scenario: The user wants to query encrypted fields
-#     # Comment: Would be great to have but difficult to implement (removed steps after next commit and add commit hash [here])
+#     # Comment: Would be great to have but difficult to implement (removed steps commit hash with not working impl. hash fe48c9e)
 #     Given user queries documents by key "username" with value "John"
 #     Then he should get 2 documents
 #     And with decrypted values
+
+    Scenario: The user gets an error if querying an encrypted field
+        Quering of encrypted fields not supported yet. (This can be removed if the commented Scenario could be implemented.)
+        Given user queries documents by key "content" with value "plaintext"
+        And the field "content" is encrypted
+        Then it should log an error with message "Querying an encrypted field not supported. Please query with not encrypted fields or query all and filter manually."
