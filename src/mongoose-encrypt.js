@@ -25,6 +25,8 @@ export default function(schema, options) {
         'Querying an encrypted field not supported. Please query with not encrypted fields or query all and filter manually.'
       )
     }
+
+    // return // todo add scenario where user queries an unencrypted key
   }
 
   schema.pre('save', function(next) {
