@@ -5,8 +5,8 @@ const mongoose = require('mongoose')
 const encrypt = require('../../src/mongoose-encrypt').default
 
 // console.log('encrypt', encrypt)
-let TestSchema = mongoose.Schema({ _id: String, content: String })
-TestSchema.plugin(encrypt, { fields: ['content'], secret: 'mysecret-key' })
+let TestSchema = mongoose.Schema({ _id: String, content: String, username: String })
+TestSchema.plugin(encrypt, { fields: ['content', 'username'], secret: 'mysecret-key' })
 const Test = mongoose.model('test', TestSchema)
 const plainText = 'plaintext'
 let testModel
@@ -14,11 +14,14 @@ let testModel
 Before(async () => {
   await mongoose.connect(dbURI)
   mongoose.connection.dropDatabase()
-  testModel = new Test({ _id: 0, content: plainText })
+  testModel = new Test({ _id: 0, content: plainText, username: 'John' })
   await testModel.save()
 
-  const testModel2 = new Test({ _id: 1, content: plainText })
+  const testModel2 = new Test({ _id: 1, content: plainText, username: 'Jane' })
   await testModel2.save() // save twice
+
+  const testModel3 = new Test({ _id: 2, content: plainText, username: 'John' })
+  await testModel3.save() // save twice
 })
 
 After(async () => {
@@ -41,6 +44,16 @@ function isDecrypted(doc, key) {
 
 Given('user queries {int} documents', async function(count) {
   this.docs = count === 1 ? await Test.findOne() : await Test.find()
+})
+
+Given('user queries documents by key {string} with value {string}', async function(key, value) {
+  // Write code here that turns the phrase above into concrete actions
+  console.log('get docs for query', key, value)
+  let query = {}
+  query[key] = value
+
+  console.log(query)
+  this.docs = await Test.find(query)
 })
 
 Then('he should get {int} documents', function(count) {
