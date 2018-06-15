@@ -9,7 +9,7 @@
     "build": "npm run clean && babel -d lib/ src/",
     "clean": "rimraf lib",
     "test": "cucumber-js",
-    "test:rerun": "cucumber-js @rerun.txt --profile devel",
+    "test:rerun": "cucumber-js @rerun.txt",
     "cover": "cross-env NODE_ENV=test nyc cucumber-js",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },

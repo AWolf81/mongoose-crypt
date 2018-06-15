@@ -25,8 +25,7 @@ export default function(schema, options) {
         'Querying an encrypted field not supported. Please query with not encrypted fields or query all and filter manually.'
       )
     }
-
-    // return // todo add scenario where user queries an unencrypted key
+    return
   }
 
   schema.pre('save', function(next) {
@@ -61,12 +60,15 @@ export default function(schema, options) {
   })
 
   schema.pre('update', function(next) {
-    //// console.log('before update', this._update)
+    let updateObj = this.getUpdate()
     for (let field of options.fieldsToEncrypt) {
-      const ciphertext = encrypt(dotty.get(this._update, field))
-      // console.log('cipher', ciphertext.toString())
-      dotty.put(this._update, field, ciphertext.toString())
+      const val = dotty.get(this._update, field)
+      if (val) {
+        const ciphertext = encrypt(val)
+        dotty.put(updateObj, field, ciphertext.toString())
+      }
     }
+    this._update = updateObj
     next()
   })
 

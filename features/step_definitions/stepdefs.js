@@ -6,7 +6,7 @@ const encrypt = require('../../src/mongoose-encrypt').default
 
 // console.log('encrypt', encrypt)
 const encryptedFields = ['content']
-let TestSchema = mongoose.Schema({ _id: String, content: String })
+let TestSchema = mongoose.Schema({ _id: String, content: String, tag: String })
 TestSchema.plugin(encrypt, { fields: encryptedFields, secret: 'mysecret-key' })
 const Test = mongoose.model('test', TestSchema)
 const plainText = 'plaintext'
@@ -15,13 +15,13 @@ let testModel
 Before(async () => {
   await mongoose.connect(dbURI)
   mongoose.connection.dropDatabase()
-  testModel = new Test({ _id: 0, content: plainText })
+  testModel = new Test({ _id: 0, content: plainText, tag: 'Javascript' })
   await testModel.save()
 
-  const testModel2 = new Test({ _id: 1, content: plainText })
+  const testModel2 = new Test({ _id: 1, content: plainText, tag: 'Javascript' })
   await testModel2.save() // save twice
 
-  const testModel3 = new Test({ _id: 2, content: plainText })
+  const testModel3 = new Test({ _id: 2, content: plainText, tag: 'Java' })
   await testModel3.save() // save twice
 })
 
@@ -110,6 +110,10 @@ Given('the field {string} is encrypted', function(key) {
   this.isEncryptedField = encryptedFields.indexOf(key) !== -1
 })
 
+Given('the field {string} is not encrypted', function(key) {
+  this.isEncryptedField = encryptedFields.indexOf(key) === -1
+})
+
 Then('it should log an error with message {string}', function(message) {
   // Write code here that turns the phrase above into concrete actions
   assert.deepEqual(this.errorThrown, new Error(message))
@@ -149,7 +153,9 @@ Given('wants to change from {string} to {string}', async function(org, modificat
     const val = splitted[1]
     // console.log('query key', key, val)
     // console.log('method', this.method)
-    const res = await Test[this.method]({ key: val }, { content: modification }).exec() // update by id
+    let query = {}
+    query[key] = val
+    const res = await Test[this.method](query, { content: modification }).exec() // update by id
     doc = await Test.findOne({ _id: val }).exec()
     // console.log('update', doc, res)
   }
@@ -158,6 +164,6 @@ Given('wants to change from {string} to {string}', async function(org, modificat
 })
 Then('stored value is {string}', async function(expectedAnswer) {
   const doc = await Test.findOne({ _id: this.docs._id })
-  // console.log('found stored', doc, this.docs)
+  //// console.log('found stored', doc, this.docs)
   assert.equal(doc.content, expectedAnswer)
 })
