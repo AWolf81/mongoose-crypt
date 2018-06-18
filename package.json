@@ -1,8 +1,8 @@
 {
-  "name": "mongoose-encrypt",
-  "version": "0.1.0",
+  "name": "mongoose-crypt",
+  "version": "0.1.1",
   "description": "",
-  "main": "./lib/mongoose-encrypt.js",
+  "main": "./lib/mongoose-crypt.js",
   "scripts": {
     "dev": "cucumber-js --profile devel && npm run lint",
     "lint": "esw ./src ./features -w",
@@ -16,7 +16,11 @@
   },
   "keywords": [
     "mongoose-plugin",
-    "encryption"
+    "encryption",
+    "security",
+    "crypto",
+    "aes",
+    "security"
   ],
   "author": "awolf81",
   "license": "MIT",

@@ -1,6 +1,6 @@
-[![Travis Status](https://img.shields.io/travis/AWolf81/mongoose-encrypt/master.svg?label=Travis%20bulid)](https://travis-ci.org/AWolf81/mongoose-encrypt)
+[![Travis Status](https://img.shields.io/travis/AWolf81/mongoose-crypt/master.svg?label=Travis%20bulid)](https://travis-ci.org/AWolf81/mongoose-crypt)
 
-[![codecov](https://img.shields.io/codecov/c/github/AWolf81/mongoose-encrypt/master.svg)](https://codecov.io/gh/AWolf81/mongoose-encrypt)
+[![codecov](https://img.shields.io/codecov/c/github/AWolf81/mongoose-crypt/master.svg)](https://codecov.io/gh/AWolf81/mongoose-crypt)
 
 # Mongoose encryption plugin
 This plugin is simillar to the Mongoose-Cipher or Mongoose-encryption plugin but it will support encryption of nested values and it will work with Mongoose 5.x.
@@ -16,11 +16,11 @@ At mongoose-encryption there is a [PR](https://github.com/joegoldbeck/mongoose-e
 
 ## Usage
 ### Installation
-`npm install mongoose-encrypt` or `yarn add mongoose-encrypt`
+`npm install mongoose-crypt` or `yarn add mongoose-crypt`
 
 ### Basic example
-    const encrypt = require('mongoose-encrypt').default
-    // or import encrypt from 'mongoose-encrypt'
+    const encrypt = require('mongoose-crypt').default
+    // or import encrypt from 'mongoose-crypt'
 
     const UserSchema = mongoose.Schema({ username: String, email: String })
     UserSchema.plugin(encrypt, { fields: ['username', 'email'], secret: 'mysecret-key' })
