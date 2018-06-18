@@ -18,7 +18,7 @@
     "mongoose-plugin",
     "encryption"
   ],
-  "author": "AWolf81",
+  "author": "awolf81",
   "license": "MIT",
   "dependencies": {
     "crypto-js": "^3.1.9-1",
