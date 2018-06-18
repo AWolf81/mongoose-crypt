@@ -16,14 +16,14 @@ At mongoose-encryption there is a [PR](https://github.com/joegoldbeck/mongoose-e
 
 ## Usage
 ### Installation
-`npm install mongoose-crypt` or `yarn add mongoose-crypt`
+`npm install mongoose-encipher` or `yarn add mongoose-encipher`
 
 ### Basic example
-    const encrypt = require('mongoose-crypt').default
-    // or import encrypt from 'mongoose-crypt'
+    const encipher = require('mongoose-encipher').default
+    // or import encipher from 'mongoose-encipher'
 
     const UserSchema = mongoose.Schema({ username: String, email: String })
-    UserSchema.plugin(encrypt, { fields: ['username', 'email'], secret: 'mysecret-key' })
+    UserSchema.plugin(encipher, { fields: ['username', 'email'], secret: 'mysecret-key' })
     
     const User = mongoose.model('user', UserSchema)
     const john = new User({username: 'John', email: 'John@dummy.com'})
@@ -53,7 +53,7 @@ Querying an encrypted field is not supported yet. Keep your query data unencrypt
 # Installation for development & building
 Clone the repo then `yarn install` to install dependencies.
 
-Use `yarn compile` to build the plugin.
+Use `yarn build` to build the plugin.
 
 Use `yarn test` to run the tests.
 
