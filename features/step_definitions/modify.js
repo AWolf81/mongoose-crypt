@@ -2,7 +2,7 @@ const assert = require('assert')
 const mongoose = require('mongoose')
 const { Given, When, Then, Before, After } = require('cucumber')
 const { Test, TestSchema, constants } = require('./init_db')
-const encrypt = require('../../src/mongoose-crypt').default
+const encrypt = require('../../src/mongoose-encipher').default
 const { isDecrypted, isEncrypted } = require('../helpers')
 
 let Post, User, Nested, ValidationTest

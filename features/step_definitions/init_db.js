@@ -1,7 +1,7 @@
 const { Before, BeforeAll, AfterAll } = require('cucumber')
 const dbURI = 'mongodb://localhost:27017/mongoose-crypt'
 const mongoose = require('mongoose')
-const encrypt = require('../../src/mongoose-crypt').default
+const encrypt = require('../../src/mongoose-encipher').default
 
 const encryptedFields = ['content']
 let TestSchema = mongoose.Schema({ _id: String, content: String, tag: String })

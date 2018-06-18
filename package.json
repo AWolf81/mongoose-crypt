@@ -1,8 +1,8 @@
 {
-  "name": "mongoose-crypt",
+  "name": "mongoose-encipher",
   "version": "0.1.1",
-  "description": "",
-  "main": "./lib/mongoose-crypt.js",
+  "description": "Mongoose plugin for symetrcical encryption of database entries using crypto-js",
+  "main": "./lib/mongoose-encipher.js",
   "scripts": {
     "dev": "cucumber-js --profile devel && npm run lint",
     "lint": "esw ./src ./features -w",
