@@ -28,7 +28,7 @@ Before(async () => {
 
 AfterAll(async () => {
   // runs after all scenarios
-  // await mongoose.connection.dropDatabase() // comment this if you want to see the documents in mongo shell
+  await mongoose.connection.dropDatabase() // comment this if you want to see the documents in mongo shell
   mongoose.connection.close(function() {
     console.log('Mongoose disconnected')
   })
