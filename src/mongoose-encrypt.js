@@ -14,8 +14,8 @@ export default function(schema, options) {
   }
 
   function decrypt(text) {
+    // todo: should we check here if text is undefined? If it is undef -> decrypt throws TypeError Cannot read property 'salt' of undefined
     const bytes = CryptoJS.AES.decrypt(text, secret)
-    //// console.log('decrypt', text, bytes.toString(CryptoJS.enc.Utf8), bytes)
     return bytes.toString(CryptoJS.enc.Utf8)
   }
 
@@ -73,26 +73,21 @@ export default function(schema, options) {
   })
 
   schema.post('find', async function(docs, next) {
-    try {
-      //// console.log('find in pos', docs)
-      for (let doc of docs) {
-        //// console.log('found', doc)
-        for (let field of options.fieldsToEncrypt) {
+    for (let doc of docs) {
+      for (let field of options.fieldsToEncrypt) {
+        if (dotty.get(doc, field)) {
+          //// selected
           const encryptedText = dotty.get(doc, field)
           dotty.put(doc, field, decrypt(encryptedText))
-          //// console.log('find', encryptedText, dotty.get(doc, field))
         }
       }
-
-      next()
-    } catch (err) {
-      throw err
     }
+
+    next()
   })
 
   schema.post('findOne', function(doc, next) {
     for (let field of options.fieldsToEncrypt) {
-      // console.log('find one', doc, dotty.get(doc, field))
       dotty.put(doc, field, decrypt(dotty.get(doc, field)))
     }
     next()
