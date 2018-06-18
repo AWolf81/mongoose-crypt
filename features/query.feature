@@ -27,3 +27,19 @@ Feature: User should transparently query encrypted values
     And the field "tag" is not encrypted
     Then he should get 2 documents
     And with decrypted values
+
+  # todo is this also working if set on schema?
+  Scenario: User can select fields in query (encrypted field)
+    Select should work for encrypted fields if the user sets `select: false` this key/value shouldn't be returned
+    Given user queries 3 documents
+    And the field "content" is using select=false
+    Then he should get 3 documents
+    And with-out key "content"
+
+  Scenario: User can set a default select in schema (encrypted field)
+    Selecting on schema basis should work as expected
+    Given user queries 3 documents
+    And the Schema defaults is using "content" "false" as select
+    Then he should get 3 documents
+    And with-out key "content" 
+

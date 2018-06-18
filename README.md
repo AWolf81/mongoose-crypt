@@ -2,14 +2,10 @@
 
 [![codecov](https://img.shields.io/codecov/c/github/AWolf81/mongoose-encrypt/devel.svg)](https://codecov.io/gh/AWolf81/mongoose-encrypt)
 
-
 # Mongoose encryption plugin
-This plugin is simillar to the Mongoose-Cipher plugin but it will support encryption of nested values.
+This plugin is simillar to the Mongoose-Cipher or Mongoose-encryption plugin but it will support encryption of nested values and it will work with Mongoose 5.x.
 
-It will store values in database with symetrical encryption and uses Crypto-js.
-
-## Note
-This plugin is very alpha and not everything is added yet but basic encryption and quering should work.
+The plugin will store values in database with symetrical encryption and uses Crypto-js.
 
 ## Why another encryption plugin?
 Because the other available plugins are not working for me. Seems like there are some issues related to Mongoose v5.
@@ -19,7 +15,12 @@ At mongoose-encryption there is a [PR](https://github.com/joegoldbeck/mongoose-e
 [mongoose-cipher](https://github.com/estrada9166/mongoose-cipher) wasn't working for my use-case - encryption of a nested schema. e.g. { content: '...', user: {username: 'encrypted}}
 
 ## Usage
+### Installation
+`npm install mongoose-encrypt` or `yarn add mongoose-encrypt`
+
 ### Basic example
+    const encrypt = require('mongoose-encrypt').default
+    // or import encrypt from 'mongoose-encrypt'
 
     const UserSchema = mongoose.Schema({ username: String, email: String })
     UserSchema.plugin(encrypt, { fields: ['username', 'email'], secret: 'mysecret-key' })
@@ -42,7 +43,7 @@ Quering as usual with `User.find()` or `User.findOne()` the plugin will decrypt 
 ## Supported mongoose methods
 
 - `find` and `findOne`
-- `findById` (not tested yet)
+- `findById`
 - `findAndUpdate` and `update`
 - `save`
 

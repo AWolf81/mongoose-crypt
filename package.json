@@ -1,6 +1,6 @@
 {
   "name": "mongoose-encrypt",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "./lib/mongoose-encrypt.js",
   "scripts": {
@@ -11,9 +11,13 @@
     "test": "cucumber-js",
     "test:rerun": "cucumber-js @rerun.txt",
     "cover": "cross-env NODE_ENV=test nyc cucumber-js",
-    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "prepublish": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "mongoose-plugin",
+    "encryption"
+  ],
   "author": "AWolf81",
   "license": "MIT",
   "dependencies": {
