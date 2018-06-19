@@ -88,7 +88,9 @@ export default function(schema, options) {
 
   schema.post('findOne', function(doc, next) {
     for (let field of options.fieldsToEncrypt) {
-      dotty.put(doc, field, decrypt(dotty.get(doc, field)))
+      if (dotty.get(doc, field)) {
+        dotty.put(doc, field, decrypt(dotty.get(doc, field)))
+      }
     }
     next()
   })
